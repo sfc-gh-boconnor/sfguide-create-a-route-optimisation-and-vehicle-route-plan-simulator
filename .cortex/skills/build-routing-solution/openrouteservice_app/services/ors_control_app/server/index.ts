@@ -6,6 +6,7 @@ import { writeFileSync, unlinkSync, readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import { createStudioRouter } from './studio/routes.js';
+import { createPlantIntelRouter } from './plant-intel/routes.js';
 import { log, getEntries, clearEntries, getUptimeMs } from './diagnostics.js';
 import { IS_SPCS, SF_DATABASE, SF_WAREHOUSE, setWarehouse, CONN, SNOWFLAKE_HOST, DEFAULT_WAREHOUSE } from './constants.js';
 
@@ -2373,6 +2374,7 @@ function formatUptime(ms: number): string {
 }
 
 app.use('/api/studio', createStudioRouter(runSql));
+app.use('/api/plant-intel', createPlantIntelRouter(runSql));
 
 app.post('/api/query', async (req, res) => {
   try {
